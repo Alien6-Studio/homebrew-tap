@@ -9,16 +9,16 @@ brew test alien6-studio/tap/apizr
 apizr --version
 ```
 
-Apizr 0.4.2 installs the core on qualified physical Apple Silicon macOS with
+Apizr 0.4.3 installs the core on qualified physical Apple Silicon macOS with
 Homebrew Python 3.14 and Pydantic. Optional MCP, OCI and Attest plugins remain
 Apizr-managed, isolated environments outside the Formula prefix.
 Intel macOS is Tier 3 and not qualified. Linux Homebrew runtime is not qualified.
 
 The Formula is generated without semantic edits from immutable
-[Apizr v0.4.2](https://github.com/Alien6-Studio/outerspace-apizr/releases/tag/v0.4.2),
-source `a21cfd41eecc7ca3259e2fb72f6a028a288b9030`.
+[Apizr v0.4.3](https://github.com/Alien6-Studio/outerspace-apizr/releases/tag/v0.4.3),
+source `cfaa5108c37ab9324297bbe5b38d90d537ea57ad`.
 Its source archive SHA-256 is
-`ca0348d7e16fd880271f10f62f1365fc52b5f264f856878426ae0628f7b51ed9`.
+`822316e92a313f46f99dd32fda636c377b578b141a00aa63168475ef450ed24f`.
 
 Changes use pull requests with a Developer Certificate of Origin sign-off.
 Regenerate the Formula with the release's publication-mode renderer and verify
