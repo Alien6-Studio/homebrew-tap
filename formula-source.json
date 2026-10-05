@@ -1,0 +1,9 @@
+{
+  "build_inputs_manifest_sha256": "4e4d4bcff46f66bbc71ce6ead637d1d978c7013abffaa5849671f5ef2dc95d1e",
+  "formula_sha256": "e4106549787eca2f70c6be5523a6984a931f9baea6ce69cd797cd4e88adc2b30",
+  "mode": "publication",
+  "schema": "apizr.homebrew-formula-source/v1",
+  "source_commit": "46c573d7f808f8d491cde1062d474b145288697f",
+  "source_sha256": "b536b1ddebae627315721f92645b48b59c6fa4e217ac76931cc41d412caed046",
+  "version": "0.4.4"
+}

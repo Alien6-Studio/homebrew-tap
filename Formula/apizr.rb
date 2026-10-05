@@ -3,8 +3,8 @@ class Apizr < Formula
 
   desc "Analyze Python repositories and prepare governed application interfaces"
   homepage "https://apizr.outerspace.sh"
-  url "https://github.com/Alien6-Studio/outerspace-apizr/releases/download/v0.4.3/outerspace_apizr-0.4.3.tar.gz"
-  sha256 "822316e92a313f46f99dd32fda636c377b578b141a00aa63168475ef450ed24f"
+  url "https://github.com/Alien6-Studio/outerspace-apizr/releases/download/v0.4.4/outerspace_apizr-0.4.4.tar.gz"
+  sha256 "b536b1ddebae627315721f92645b48b59c6fa4e217ac76931cc41d412caed046"
   license "GPL-3.0-or-later"
 
   depends_on "pydantic"
@@ -60,7 +60,7 @@ class Apizr < Formula
   end
 
   test do
-    assert_match "outerspace-apizr 0.4.3", shell_output("#{bin}/apizr --version")
+    assert_match "outerspace-apizr 0.4.4", shell_output("#{bin}/apizr --version")
     (testpath/"sample.py").write <<~PYTHON
       def add(a: int, b: int = 2) -> int:
           return a + b
