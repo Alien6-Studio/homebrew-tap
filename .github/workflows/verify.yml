@@ -1,0 +1,69 @@
+name: Verify public Apizr Formula
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  apple-silicon:
+    runs-on: macos-26
+    timeout-minutes: 35
+    env:
+      HOMEBREW_NO_AUTO_UPDATE: '1'
+      HOMEBREW_NO_INSTALL_CLEANUP: '1'
+      HOMEBREW_NO_AUTOREMOVE: '1'
+      HOMEBREW_NO_ANALYTICS: '1'
+      HOMEBREW_DEVELOPER: '1'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Select official runtime providers and this reviewed tap
+        run: |
+          test "$(uname -m)" = arm64
+          brew update
+          brew install python@3.14 pydantic
+          brew tap alien6-studio/tap "file://$GITHUB_WORKSPACE"
+          brew trust --formula alien6-studio/tap/apizr
+      - name: Style, structure and strict public-source audit
+        run: |
+          brew style alien6-studio/tap/apizr
+          brew readall alien6-studio/tap
+          brew audit --strict --online alien6-studio/tap/apizr
+      - name: Install the immutable public source and test the actual Formula
+        run: |
+          brew install --build-from-source alien6-studio/tap/apizr
+          brew test alien6-studio/tap/apizr
+          apizr --version
+          brew info --json=v2 alien6-studio/tap/apizr > "$RUNNER_TEMP/formula-info.json"
+          prefix=$(brew --prefix alien6-studio/tap/apizr)
+          provider=$(brew --prefix pydantic)
+          "$prefix/libexec/bin/python" -I -B - "$prefix" "$provider" <<'PY'
+          import importlib.metadata as md, importlib.util, pathlib, sys
+          import apizr, pydantic, pydantic_core
+          prefix, provider = map(pathlib.Path, sys.argv[1:])
+          assert md.version('outerspace-apizr') == '0.4.4'
+          assert pathlib.Path(apizr.__file__).resolve().is_relative_to(prefix.resolve() / 'libexec')
+          assert all(pathlib.Path(m.__file__).resolve().is_relative_to(provider.resolve()) for m in (pydantic, pydantic_core))
+          assert not importlib.util.find_spec('hatchling')
+          assert not importlib.util.find_spec('mcp')
+          print('Verified public core 0.4.4 from Formula libexec with Homebrew runtime providers')
+          PY
+          mkdir "$RUNNER_TEMP/apizr-project"
+          printf 'def total(unit_cents: int, quantity: int) -> int:\n    return unit_cents * quantity + 100\n' > "$RUNNER_TEMP/apizr-project/pricing.py"
+          apizr init "$RUNNER_TEMP/apizr-project" --json
+          apizr doctor --project "$RUNNER_TEMP/apizr-project/apizr.toml" --operator-policy "$RUNNER_TEMP/apizr-project/.apizr/operator.json" --json > "$RUNNER_TEMP/doctor.json"
+          apizr ci check --project "$RUNNER_TEMP/apizr-project/apizr.toml" --output-dir "$RUNNER_TEMP/ci-result" --authorize-project-analysis
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: public-formula-apple-silicon
+          path: |
+            ${{ runner.temp }}/formula-info.json
+            ${{ runner.temp }}/doctor.json
+            ${{ runner.temp }}/ci-result
+          if-no-files-found: warn
+          retention-days: 90
