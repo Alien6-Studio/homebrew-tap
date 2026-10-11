@@ -9,15 +9,15 @@ brew test alien6-studio/tap/apizr
 apizr --version
 ```
 
-Apizr 0.4.4 installs the core with Homebrew Python 3.14 and Pydantic.
+Apizr 0.4.5 installs the core with Homebrew Python 3.14 and Pydantic.
 Optional MCP, OCI and Attest plugins remain Apizr-managed, isolated environments
 outside the Formula prefix. Managed plugin installation requires uv 0.12.0.
 
 The Formula is generated without semantic edits from immutable
-[Apizr v0.4.4](https://github.com/Alien6-Studio/outerspace-apizr/releases/tag/v0.4.4),
-source `46c573d7f808f8d491cde1062d474b145288697f`.
+[Apizr v0.4.5](https://github.com/Alien6-Studio/outerspace-apizr/releases/tag/v0.4.5),
+source `da74e6de5800eab9c275e42c5d4c24a59ac4fcbe`.
 Its source archive SHA-256 is
-`b536b1ddebae627315721f92645b48b59c6fa4e217ac76931cc41d412caed046`.
+`c4dfc1834bdcc885b87dfe0dda58743b41971ac64e58ad74caef7ea369d9b5c7`.
 The publication renderer verified protected master provenance and the public
 asset's identity. `formula-source.json` records the generated Formula and build-input hashes.
 

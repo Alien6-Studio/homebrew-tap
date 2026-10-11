@@ -3,16 +3,16 @@ class Apizr < Formula
 
   desc "Analyze Python repositories and prepare governed application interfaces"
   homepage "https://apizr.outerspace.sh"
-  url "https://github.com/Alien6-Studio/outerspace-apizr/releases/download/v0.4.4/outerspace_apizr-0.4.4.tar.gz"
-  sha256 "b536b1ddebae627315721f92645b48b59c6fa4e217ac76931cc41d412caed046"
+  url "https://github.com/Alien6-Studio/outerspace-apizr/releases/download/v0.4.5/outerspace_apizr-0.4.5.tar.gz"
+  sha256 "c4dfc1834bdcc885b87dfe0dda58743b41971ac64e58ad74caef7ea369d9b5c7"
   license "GPL-3.0-or-later"
 
   depends_on "pydantic"
   depends_on "python@3.14"
 
   resource "hatchling" do
-    url "https://files.pythonhosted.org/packages/0d/a5/48cb7efb8b4718b1a4c0c331e3364a3a33f614ff0d6afd2b93ee883d3c47/hatchling-1.28.0-py3-none-any.whl", using: :nounzip
-    sha256 "dc48722b68b3f4bbfa3ff618ca07cdea6750e7d03481289ffa8be1521d18a961"
+    url "https://files.pythonhosted.org/packages/5f/80/91f51f439c05d4ec4623c22928ce16a938d6d793bf709477830823497859/hatchling-1.32.4-py3-none-any.whl", using: :nounzip
+    sha256 "08ecf7548fb48205e7f213d70c71e67b8271b7242093dc3f1da578b42c734a2c"
   end
 
   resource "packaging" do
@@ -28,6 +28,11 @@ class Apizr < Formula
   resource "pluggy" do
     url "https://files.pythonhosted.org/packages/54/20/4d324d65cc6d9205fabedc306948156824eb9f0ee1633355a8f7ec5c66bf/pluggy-1.6.0-py3-none-any.whl", using: :nounzip
     sha256 "e920276dd6813095e9377c0bc5566d94c932c33b27a3e3945d8389c374dd4746"
+  end
+
+  resource "tomlkit" do
+    url "https://files.pythonhosted.org/packages/13/bc/8c13eb66537dce1d2bd3a57132902f38d0e7f5bb46fa9f4daed9fe9d76ee/tomlkit-0.15.1-py3-none-any.whl", using: :nounzip
+    sha256 "177a05aece5a8ca5266fd3c448abb47b8d352f09d477d3ca8332db4d89b24304"
   end
 
   resource "trove-classifiers" do
@@ -52,7 +57,7 @@ class Apizr < Formula
     ENV["PIP_DISABLE_PIP_VERSION_CHECK"] = "1"
     ENV["PYTHONDONTWRITEBYTECODE"] = "1"
     # std_pip_args supplies --no-deps. Its blanket source-only rule must be reset
-    # for the five reviewed build wheels; the application is still this local sdist.
+    # for the six reviewed build wheels; the application is still this local sdist.
     system python, "-m", "pip", "--python=#{libexec}/bin/python", "install",
            *std_pip_args(prefix: false, build_isolation: true),
            "--no-binary=:none:", "--no-cache-dir", buildpath
@@ -60,7 +65,7 @@ class Apizr < Formula
   end
 
   test do
-    assert_match "outerspace-apizr 0.4.4", shell_output("#{bin}/apizr --version")
+    assert_match "outerspace-apizr 0.4.5", shell_output("#{bin}/apizr --version")
     (testpath/"sample.py").write <<~PYTHON
       def add(a: int, b: int = 2) -> int:
           return a + b
