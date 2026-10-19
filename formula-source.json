@@ -1,9 +1,9 @@
 {
-  "build_inputs_manifest_sha256": "1f21f636f060559986521aed1a7b8255988add01fdba5febbd1d1381889153dd",
-  "formula_sha256": "63ed36e1409de05487311a9feaa5f1c6d1b6141511c2e2aaf90867a1e2b63df6",
+  "build_inputs_manifest_sha256": "b91848bc80e8664c783ccb1a103caaa9aeff14be5b0c678384ca5a86d54e0371",
+  "formula_sha256": "931bc4d07f30ce8bcc5adf895c0956836bb406084dc017d1514283f95e4d20cd",
   "mode": "publication",
   "schema": "apizr.homebrew-formula-source/v1",
-  "source_commit": "da74e6de5800eab9c275e42c5d4c24a59ac4fcbe",
-  "source_sha256": "c4dfc1834bdcc885b87dfe0dda58743b41971ac64e58ad74caef7ea369d9b5c7",
-  "version": "0.4.5"
+  "source_commit": "5ace433a8e955a6fa938fa72db93cea96d124491",
+  "source_sha256": "2016633890ba59f5768d61a9e2546f08b4a8c220118cff4bdbbb57d87151ee54",
+  "version": "0.4.6"
 }

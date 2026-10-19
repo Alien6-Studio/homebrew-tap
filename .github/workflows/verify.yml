@@ -25,7 +25,7 @@ jobs:
         run: |
           test "$(uname -m)" = arm64
           brew update
-          brew install python@3.14 pydantic
+          brew install python@3.15 pydantic
           brew tap alien6-studio/tap "file://$GITHUB_WORKSPACE"
           brew trust --formula alien6-studio/tap/apizr
       - name: Style, structure and strict public-source audit
@@ -45,12 +45,12 @@ jobs:
           import importlib.metadata as md, importlib.util, pathlib, sys
           import apizr, pydantic, pydantic_core
           prefix, provider = map(pathlib.Path, sys.argv[1:])
-          assert md.version('outerspace-apizr') == '0.4.5'
+          assert md.version('outerspace-apizr') == '0.4.6'
           assert pathlib.Path(apizr.__file__).resolve().is_relative_to(prefix.resolve() / 'libexec')
           assert all(pathlib.Path(m.__file__).resolve().is_relative_to(provider.resolve()) for m in (pydantic, pydantic_core))
           assert not importlib.util.find_spec('hatchling')
           assert not importlib.util.find_spec('mcp')
-          print('Verified public core 0.4.5 from Formula libexec with Homebrew runtime providers')
+          print('Verified public core 0.4.6 from Formula libexec with Homebrew runtime providers')
           PY
           mkdir "$RUNNER_TEMP/apizr-project"
           printf 'def total(unit_cents: int, quantity: int) -> int:\n    return unit_cents * quantity + 100\n' > "$RUNNER_TEMP/apizr-project/pricing.py"

@@ -3,12 +3,12 @@ class Apizr < Formula
 
   desc "Analyze Python repositories and prepare governed application interfaces"
   homepage "https://apizr.outerspace.sh"
-  url "https://github.com/Alien6-Studio/outerspace-apizr/releases/download/v0.4.5/outerspace_apizr-0.4.5.tar.gz"
-  sha256 "c4dfc1834bdcc885b87dfe0dda58743b41971ac64e58ad74caef7ea369d9b5c7"
+  url "https://github.com/Alien6-Studio/outerspace-apizr/releases/download/v0.4.6/outerspace_apizr-0.4.6.tar.gz"
+  sha256 "2016633890ba59f5768d61a9e2546f08b4a8c220118cff4bdbbb57d87151ee54"
   license "GPL-3.0-or-later"
 
   depends_on "pydantic"
-  depends_on "python@3.14"
+  depends_on "python@3.15"
 
   resource "hatchling" do
     url "https://files.pythonhosted.org/packages/5f/80/91f51f439c05d4ec4623c22928ce16a938d6d793bf709477830823497859/hatchling-1.32.4-py3-none-any.whl", using: :nounzip
@@ -26,8 +26,8 @@ class Apizr < Formula
   end
 
   resource "pluggy" do
-    url "https://files.pythonhosted.org/packages/54/20/4d324d65cc6d9205fabedc306948156824eb9f0ee1633355a8f7ec5c66bf/pluggy-1.6.0-py3-none-any.whl", using: :nounzip
-    sha256 "e920276dd6813095e9377c0bc5566d94c932c33b27a3e3945d8389c374dd4746"
+    url "https://files.pythonhosted.org/packages/40/9e/2b38731e0fc536806f16490e1a12d7f0dc2a1235aa8cc07bcc75416a7daa/pluggy-1.7.0-py3-none-any.whl", using: :nounzip
+    sha256 "7dd7b0d8832ba3cb632c306926ded123429211b83641b35dc5c41ad2d34f9bec"
   end
 
   resource "tomlkit" do
@@ -46,8 +46,8 @@ class Apizr < Formula
     # These reviewed wheels feed PEP 517 only; never install resources into libexec.
     wheelhouse = buildpath/"build-wheelhouse"
     resources.each { |r| r.stage wheelhouse }
-    python = formula_opt_bin("python@3.14")/"python3.14"
-    virtualenv_create(libexec, python, system_site_packages: true)
+    python = formula_opt_bin("python@3.15")/"python3.15"
+    virtualenv_create(libexec, python, system_site_packages: false)
 
     ENV.keys.grep(/^PIP_/).each { |key| ENV.delete(key) }
     ENV["PIP_CONFIG_FILE"] = File::NULL
@@ -65,7 +65,7 @@ class Apizr < Formula
   end
 
   test do
-    assert_match "outerspace-apizr 0.4.5", shell_output("#{bin}/apizr --version")
+    assert_match "outerspace-apizr 0.4.6", shell_output("#{bin}/apizr --version")
     (testpath/"sample.py").write <<~PYTHON
       def add(a: int, b: int = 2) -> int:
           return a + b
