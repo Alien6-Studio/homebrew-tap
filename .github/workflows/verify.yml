@@ -57,7 +57,8 @@ jobs:
           apizr init "$RUNNER_TEMP/apizr-project" --json
           apizr doctor --project "$RUNNER_TEMP/apizr-project/apizr.toml" --operator-policy "$RUNNER_TEMP/apizr-project/.apizr/operator.json" --json > "$RUNNER_TEMP/doctor.json"
           apizr ci check --project "$RUNNER_TEMP/apizr-project/apizr.toml" --output-dir "$RUNNER_TEMP/ci-result" --authorize-project-analysis
-      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+      - name: Retain public Formula evidence
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
         with:
           name: public-formula-apple-silicon
